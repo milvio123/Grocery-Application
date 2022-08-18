@@ -8,11 +8,12 @@ class Main {
 
     int userresp = 0;
     Scanner myObj = new Scanner(System.in);
-  while(userresp!=4) {
+  while(userresp!=5) {
     System.out.println("Type 1 to Add item");
     System.out.println("Type 2 Edit item");
     System.out.println("Type 3 Remove item");
-    System.out.println("Type 4 Exit");
+    System.out.println("Type 4 Total Price");
+    System.out.println("Type 5 Exit");
     userresp = myObj.nextInt();
 
     if(userresp==1) {
@@ -65,6 +66,15 @@ class Main {
       }
       System.out.println(grocitems);
       System.out.println(grocprices);
+
+    }
+
+    if(userresp==4) {
+      int total = 0;
+      for (int a = 0; a < grocprices.size(); a++) {
+        total+=grocprices.get(a);
+      }
+      System.out.println(total);
 
     }
 
