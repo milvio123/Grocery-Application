@@ -86,13 +86,11 @@ class Main {
     }
 
     if(userresp==5) {
-      if(total == 0) {
         for (int c = 0; c < grocprices.size(); c++) {
           total+=grocprices.get(c);
         }
         totalS = String.valueOf(total);
-      }
-       myFile = new File("bill.txt");
+        myFile = new File("bill.txt");
 
       try {
         if (myFile.createNewFile()) {
