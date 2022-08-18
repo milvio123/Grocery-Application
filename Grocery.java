@@ -1,11 +1,9 @@
 import java.util.Scanner; // import the Scanner class 
 import java.util.ArrayList;
-import java.io.File; 
+import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-
-
+import java.io.IOException;
 
 class Main {
   public static void main(String[] args) {
@@ -14,7 +12,9 @@ class Main {
 
     int userresp = 0;
     int total = 0;
+    File myFile = null;
     Scanner myObj = new Scanner(System.in);
+
   while(userresp!=6) {
     System.out.println("Type 1 to Add item");
     System.out.println("Type 2 Edit item");
@@ -87,25 +87,50 @@ class Main {
     }
 
     if(userresp==5) {
-
-      try {  
-        FileWriter myWriter = new FileWriter("bill.txt");
-        myWriter.write("This is the item list: " + grocitems.toString() + System.lineSeparator());
-        myWriter.write("This is the price list: " + grocprices.toString() + System.lineSeparator());
-        myWriter.write(total);
-        myWriter.close();
-        System.out.println("File is saved as bill.txt.");
-
+       myFile = new File("bill.txt");
+      try {
+        if (myFile.createNewFile()) {
+          System.out.println("File created: " + myFile.getName());
+        } else {
+          System.out.println("File already exists.");
+        }
       } catch (IOException e) {
         System.out.println("An error occurred.");
         e.printStackTrace();
       }
+      try {  
+          FileWriter myWriter = new FileWriter("bill.txt");
+          myWriter.write("This is the item list: " + grocitems.toString() + System.lineSeparator());
+          myWriter.write("This is the price list: " + grocprices.toString() + System.lineSeparator());
+          myWriter.write(total);
+          myWriter.close();
+          System.out.println("File is saved as bill.txt.");
   
-  
+        } catch (IOException e) {
+          System.out.println("An error occurred.");
+          e.printStackTrace();
+        }
+
+        try {
+          Scanner myReader = new Scanner(myFile);
+          while (myReader.hasNextLine()) {
+          String data = myReader.nextLine();
+          System.out.println(data);
+      }
+          myReader.close();
+        } catch (FileNotFoundException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+        }
     }
 
     }
-
+    if(userresp==6) {
+      if (myFile.delete()) { 
+        System.out.println("Deleted the file: " + myFile.getName());
+      } else {
+        System.out.println("Failed to delete the file.");
+      } 
+    }
   }
-  
 }
