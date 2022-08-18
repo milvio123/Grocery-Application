@@ -12,6 +12,7 @@ class Main {
 
     int userresp = 0;
     int total = 0;
+    String totalS = "None";
     File myFile = null;
     Scanner myObj = new Scanner(System.in);
 
@@ -58,8 +59,8 @@ class Main {
           grocprices.set(indexofedit, pricetochange);
         }
       
-      System.out.println(grocitems);
-      System.out.println(grocprices);
+          System.out.println(grocitems);
+          System.out.println(grocprices);
 
 
     }
@@ -74,7 +75,6 @@ class Main {
       }
       System.out.println(grocitems);
       System.out.println(grocprices);
-
     }
 
     if(userresp==4) {
@@ -83,11 +83,17 @@ class Main {
         total+=grocprices.get(a);
       }
       System.out.println(total);
-
     }
 
     if(userresp==5) {
+      if(total == 0) {
+        for (int c = 0; c < grocprices.size(); c++) {
+          total+=grocprices.get(c);
+        }
+        totalS = String.valueOf(total);
+      }
        myFile = new File("bill.txt");
+
       try {
         if (myFile.createNewFile()) {
           System.out.println("File created: " + myFile.getName());
@@ -102,7 +108,7 @@ class Main {
           FileWriter myWriter = new FileWriter("bill.txt");
           myWriter.write("This is the item list: " + grocitems.toString() + System.lineSeparator());
           myWriter.write("This is the price list: " + grocprices.toString() + System.lineSeparator());
-          myWriter.write(total);
+          myWriter.write("The total bill is: " + totalS);
           myWriter.close();
           System.out.println("File is saved as bill.txt.");
   
