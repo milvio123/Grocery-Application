@@ -1,5 +1,11 @@
 import java.util.Scanner; // import the Scanner class 
 import java.util.ArrayList;
+import java.io.File; 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+
 
 class Main {
   public static void main(String[] args) {
@@ -7,13 +13,15 @@ class Main {
     ArrayList<Integer> grocprices = new ArrayList<Integer>();
 
     int userresp = 0;
+    int total = 0;
     Scanner myObj = new Scanner(System.in);
-  while(userresp!=5) {
+  while(userresp!=6) {
     System.out.println("Type 1 to Add item");
     System.out.println("Type 2 Edit item");
     System.out.println("Type 3 Remove item");
     System.out.println("Type 4 Total Price");
-    System.out.println("Type 5 Exit");
+    System.out.println("Type 5 Save Bill");
+    System.out.println("Type 6 Exit");
     userresp = myObj.nextInt();
 
     if(userresp==1) {
@@ -70,12 +78,30 @@ class Main {
     }
 
     if(userresp==4) {
-      int total = 0;
+     
       for (int a = 0; a < grocprices.size(); a++) {
         total+=grocprices.get(a);
       }
       System.out.println(total);
 
+    }
+
+    if(userresp==5) {
+
+      try {  
+        FileWriter myWriter = new FileWriter("bill.txt");
+        myWriter.write("This is the item list: " + grocitems.toString() + System.lineSeparator());
+        myWriter.write("This is the price list: " + grocprices.toString() + System.lineSeparator());
+        myWriter.write(total);
+        myWriter.close();
+        System.out.println("File is saved as bill.txt.");
+
+      } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+      }
+  
+  
     }
 
     }
