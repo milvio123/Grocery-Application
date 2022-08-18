@@ -1,3 +1,0 @@
-This is the item list: [A]
-This is the price list: [10]
-The total bill is: 10
